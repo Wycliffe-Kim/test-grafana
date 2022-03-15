@@ -1,8 +1,7 @@
 [tool.poetry]
-name = "injector"
+name = "client"
 version = "0.1.0"
 description = ""
-authors = ["Wycliffe-Kim <f16o@hanyang.ac.kr>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
