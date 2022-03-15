@@ -23,8 +23,8 @@ export default function GRPCServer(port: number) {
     );
   }
 
-  function proto(): any {
-    return grpc.loadPackageDefinition(packageDefinition(_protoPath));
+  function proto(protoPath: string): any {
+    return grpc.loadPackageDefinition(packageDefinition(protoPath));
   }
 
   function sendTrafficVolumes(
@@ -37,7 +37,7 @@ export default function GRPCServer(port: number) {
   return {
     do() {
       const server = new grpc.Server();
-      server.addService(proto().TrafficVolumeService, { sendTrafficVolumes })
+      server.addService(proto(_protoPath).TrafficVolumeService, { sendTrafficVolumes })
       server.bindAsync(
         `${_address}:${_port}`, 
         grpc.ServerCredentials.createInsecure(), 
