@@ -8,7 +8,7 @@ export default function NodeServer(port: number) {
     do() {
       const server = express();
     
-      server.get('/trafficvolumes', async (req, res) => {
+      server.get('/metric/trafficvolumes', async (req, res) => {
         res.set('Content-Type', register.contentType);
         res.end(await register.getSingleMetricAsString('traffic_volumes'));
       });
