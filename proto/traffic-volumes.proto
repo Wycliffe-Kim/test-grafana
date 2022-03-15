@@ -1,0 +1,18 @@
+syntax="proto3";
+
+service TrafficVolumeService {
+  rpc send_traffic_volumes(TrafficVolumeData) returns TrafficVolumeResponse {}
+}
+
+message TrafficVolumeData {
+  int32 camera_number = 1;
+  int32 minutes = 2;
+  int32 car = 3;
+  int32 bus = 4;
+  int32 truck = 5;
+  int32 motorcycle = 6;
+}
+
+message TrafficVolumeResponse {
+  int32 status_code = 1;
+}
