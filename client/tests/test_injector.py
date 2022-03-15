@@ -1,4 +1,4 @@
-from injector import __version__
+from client import __version__
 
 
 def test_version():
