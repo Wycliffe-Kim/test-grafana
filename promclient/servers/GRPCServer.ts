@@ -1,5 +1,5 @@
-import grpc from '@grpc/grpc-js';
-import protoLoader from '@grpc/proto-loader';
+import * as grpc from '@grpc/grpc-js';
+import * as protoLoader from '@grpc/proto-loader';
 
 interface ResponseType {
   status_code: number;  
@@ -8,7 +8,7 @@ interface ResponseType {
 export default function GRPCServer(port: number) {
   const _address = '0.0.0.0';
   const _port = port;
-  const _protoPath = '../../proto/traffic-volumes.proto';
+  const _protoPath = '../proto/traffic-volumes.proto';
 
   function packageDefinition(protoFile: string) {
     return protoLoader.loadSync(
@@ -28,7 +28,7 @@ export default function GRPCServer(port: number) {
   }
 
   function sendTrafficVolumes(
-    call: grpc.ServerUnaryCall<null, ResponseType>, 
+    call: any, 
     callback: grpc.sendUnaryData<ResponseType>) {
       console.log('sendTrafficVolumes', call);
       callback(null, { status_code: 1 });
@@ -37,11 +37,16 @@ export default function GRPCServer(port: number) {
   return {
     do() {
       const server = new grpc.Server();
-      server.addService(proto(_protoPath).TrafficVolumeService, { sendTrafficVolumes })
+      server.addService(proto(_protoPath).TrafficVolumeService.service, { 
+        send_traffic_volumes: sendTrafficVolumes 
+      });
       server.bindAsync(
         `${_address}:${_port}`, 
         grpc.ServerCredentials.createInsecure(), 
-        () => server.start());
+        () => {
+          console.log(`gRPC server started in port ${_port}`);
+          server.start();
+        });
     }
   }
 }

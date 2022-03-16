@@ -1,4 +1,4 @@
-import { GRPCServer, NodeServer } from "./servers";
+import { GRPCServer, NodeServer } from './servers';
 
 const port = 5555;
 const servers = [NodeServer, GRPCServer];

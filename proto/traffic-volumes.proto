@@ -1,7 +1,7 @@
 syntax="proto3";
 
 service TrafficVolumeService {
-  rpc send_traffic_volumes(TrafficVolumeData) returns TrafficVolumeResponse {}
+  rpc send_traffic_volumes(TrafficVolumeData) returns (TrafficVolumeResponse) {}
 }
 
 message TrafficVolumeData {

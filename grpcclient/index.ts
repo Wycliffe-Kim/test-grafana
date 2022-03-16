@@ -1,5 +1,5 @@
-import grpc from '@grpc/grpc-js';
-import protoLoader from '@grpc/proto-loader';
+import * as grpc from '@grpc/grpc-js';
+import * as protoLoader from '@grpc/proto-loader';
 
 const address = 'localhost';
 const port = 5556;
@@ -23,7 +23,7 @@ function proto(protoPath: string): any {
 }
 
 function generateRandomNumber(max: number) {
-  return Math.random() * max;
+  return parseInt((Math.random() * max).toFixed(0));
 }
 
 function main() {
@@ -32,13 +32,17 @@ function main() {
     `${address}:${port}`, grpc.credentials.createInsecure());
   
   setInterval(() => {
-    _service.send_traffic_volumes({
+    const data = {
       camera_number: generateRandomNumber(10),
       minutes: generateRandomNumber(59),
       car: generateRandomNumber(5),
       bus: generateRandomNumber(5),
       truck: generateRandomNumber(5),
       motorcycle: generateRandomNumber(5)
+    };
+    console.log(`data sent: ${JSON.stringify(data)}`);
+    _service.send_traffic_volumes(data, (error: any, response: any) => {
+      
     });
   }, 1000);
 }
