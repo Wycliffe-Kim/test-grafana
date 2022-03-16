@@ -1,6 +1,15 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
+import { TrafficVolumes } from '../metrics';
 
+interface RequestType {
+  camera_number: number;
+  minutes: number;
+  car: number;
+  bus: number;
+  truck: number;
+  motorcycle: number;
+}
 interface ResponseType {
   status_code: number;  
 }
@@ -28,9 +37,19 @@ export default function GRPCServer(port: number) {
   }
 
   function sendTrafficVolumes(
-    call: any, 
+    call: grpc.ServerUnaryCall<RequestType, ResponseType>, 
     callback: grpc.sendUnaryData<ResponseType>) {
-      console.log('sendTrafficVolumes', call);
+      console.log(`traffic volumes received ${JSON.stringify(call.request)}`);
+      const _camera_number = call.request.camera_number;
+      const _minutes = call.request.minutes;
+      const _car = call.request.car;
+      const _bus = call.request.bus;
+      const _truck = call.request.truck;
+      const _motorcycle = call.request.motorcycle;
+      TrafficVolumes('CAR').inc(_camera_number, _minutes, _car);
+      TrafficVolumes('BUS').inc(_camera_number, _minutes, _bus);
+      TrafficVolumes('TRUCK').inc(_camera_number, _minutes, _truck);
+      TrafficVolumes('MOTORCYCLE').inc(_camera_number, _minutes, _motorcycle);
       callback(null, { status_code: 1 });
     }
 
