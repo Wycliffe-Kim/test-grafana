@@ -8,14 +8,23 @@ export default function NodeServer(port: number) {
 
   function serverGet(type: MetricTypes) {
     const _type = type.toLowerCase();
-    server.get(`/metric/trafficvolumes/${_type}`, async (req, res) => {
+    server.get(`/metrics/traffic_volumes_${_type}`, async (req, res) => {
+      console.log('server get', _type);
       res.set('Content-Type', register.contentType);
       res.end(await register.getSingleMetricAsString(`traffic_volumes_${_type}`));
     });
   }
 
+  function serverGetAll() {
+    server.get('/metrics', async (req, res) => {
+      res.set('Content-Type', register.contentType);
+      res.end(await register.metrics());
+    });
+  }
+
   return {
     do() {
+      serverGetAll();      
       serverGet('CAR');
       serverGet('BUS');
       serverGet('TRUCK');
