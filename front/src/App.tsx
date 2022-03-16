@@ -4,22 +4,13 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <iframe 
+      // src="http://localhost:3555/d-solo/kHqSfKPnz/traffic-volumes?orgId=1&panelId=2" 
+      src="http://localhost:3555/d-solo/NkWpYKPnk/traffic-volumes?orgId=1&refresh=5s&panelId=2"
+      width="1000" 
+      height="600" 
+      frameBorder="0"
+    />
   );
 }
 

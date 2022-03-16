@@ -30,3 +30,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./promclient
+    ports:
+      - 5555:5555
+      - 5556:5556

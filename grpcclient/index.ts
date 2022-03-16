@@ -43,7 +43,7 @@ function main() {
       truck: generateRandomNumber(5),
       motorcycle: generateRandomNumber(5)
     };
-    // console.log(`traffic volumes sent: ${JSON.stringify(data)}`);
+    console.log(`traffic volumes sent: ${JSON.stringify(data)}`);
     _service.send_traffic_volumes(data, (error: any, response: any) => {
       
     });
