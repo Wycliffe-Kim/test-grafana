@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+  base:
+    container_name: base
+    build:
+      dockerfile: Dockerfile
+      context: ./
+
   grafana:
     build: 
       dockerfile: Dockerfile
@@ -14,3 +20,13 @@ services:
       context: ./prometheus
     ports:
       - 9090:9090
+
+  grpcclient:
+    build:
+      dockerfile: Dockerfile
+      context: ./grpcclient
+
+  promclient:
+    build:
+      dockerfile: Dockerfile
+      context: ./promclient
