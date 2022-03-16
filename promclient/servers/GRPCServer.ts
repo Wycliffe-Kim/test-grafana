@@ -41,15 +41,15 @@ export default function GRPCServer(port: number) {
     callback: grpc.sendUnaryData<ResponseType>) {
       // console.log(`traffic volumes received ${JSON.stringify(call.request)}`);
       const _camera_number = call.request.camera_number;
-      const _minutes = call.request.minutes;
+      // const _minutes = call.request.minutes;
       const _car = call.request.car;
       const _bus = call.request.bus;
       const _truck = call.request.truck;
       const _motorcycle = call.request.motorcycle;
-      TrafficVolumes('CAR').inc(_camera_number, _minutes, _car);
-      TrafficVolumes('BUS').inc(_camera_number, _minutes, _bus);
-      TrafficVolumes('TRUCK').inc(_camera_number, _minutes, _truck);
-      TrafficVolumes('MOTORCYCLE').inc(_camera_number, _minutes, _motorcycle);
+      TrafficVolumes('CAR').inc(_camera_number, _car);
+      TrafficVolumes('BUS').inc(_camera_number, _bus);
+      TrafficVolumes('TRUCK').inc(_camera_number, _truck);
+      TrafficVolumes('MOTORCYCLE').inc(_camera_number, _motorcycle);
       callback(null, { status_code: 1 });
     }
 

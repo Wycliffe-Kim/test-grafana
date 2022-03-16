@@ -4,9 +4,9 @@ import MetricTypes from './MetricTypes';
 export default function TrafficVolumes(type: MetricTypes) {
   const _type = type.toLowerCase();
 
-  function getCounter(camera_number: number, minutes: number) {
+  function getCounter(camera_number: number) {
     const _counter = register.getSingleMetric(`traffic_volumes_${_type}`) as Counter<string>;
-    return _counter.labels(`${camera_number}`, `${minutes}`);
+    return _counter.labels(`${camera_number}`);
   }
 
   async function check() {
@@ -17,8 +17,8 @@ export default function TrafficVolumes(type: MetricTypes) {
   }
 
   return {
-    inc(camera_number: number, minutes: number, count: number) {
-      getCounter(camera_number, minutes).inc(count);
+    inc(camera_number: number, count: number) {
+      getCounter(camera_number).inc(count);
       // check();
     },
   }

@@ -7,7 +7,7 @@ export default function Initializer() {
     new Counter({
       name: `traffic_volumes_${_type}`,
       help: `Traffic Volumes Metrics (${_type}) For Test`,
-      labelNames: ['camera_number', 'minutes']
+      labelNames: ['camera_number']
     });
   }
 
