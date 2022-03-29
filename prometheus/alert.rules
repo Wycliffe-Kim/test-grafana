@@ -1,0 +1,39 @@
+groups:
+- name: test
+  rules:
+
+  - alert: car_alert
+    expr: rate(traffic_volumes_car[5m]) > 0.75
+    for: 0s
+    labels:
+      tags: car_alert
+    annotations:
+      summary: "car_alert"
+      description: "car_alert"
+
+  - alert: bus_alert
+    expr: rate(traffic_volumes_bus[5m]) > 0.75
+    for: 0s
+    labels:
+      tags: bus_alert
+    annotations:
+      summary: "bus_alert"
+      description: "bus_alert"
+
+  - alert: truck_alert
+    expr: rate(traffic_volumes_truck[5m]) > 0.75
+    for: 0s
+    labels:
+      tags: truck_alert
+    annotations:
+      summary: "truck_alert"
+      description: "truck_alert"
+
+  - alert: motorcycle_alert
+    expr: rate(traffic_volumes_motorcycle[5m]) > 0.75
+    for: 0s
+    labels:
+      tags: motorcycle_alert
+    annotations:
+      summary: "motorcycle_alert"
+      description: "motorcycle_alert"
