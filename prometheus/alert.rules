@@ -6,7 +6,7 @@ groups:
     expr: rate(traffic_volumes_car[5m]) > 0.75
     for: 0s
     labels:
-      tags: car_alert
+      tags: car
     annotations:
       summary: "car_alert"
       description: "car_alert"
@@ -15,7 +15,7 @@ groups:
     expr: rate(traffic_volumes_bus[5m]) > 0.75
     for: 0s
     labels:
-      tags: bus_alert
+      tags: bus
     annotations:
       summary: "bus_alert"
       description: "bus_alert"
@@ -24,7 +24,7 @@ groups:
     expr: rate(traffic_volumes_truck[5m]) > 0.75
     for: 0s
     labels:
-      tags: truck_alert
+      tags: truck
     annotations:
       summary: "truck_alert"
       description: "truck_alert"
@@ -33,7 +33,7 @@ groups:
     expr: rate(traffic_volumes_motorcycle[5m]) > 0.75
     for: 0s
     labels:
-      tags: motorcycle_alert
+      tags: motorcycle
     annotations:
       summary: "motorcycle_alert"
       description: "motorcycle_alert"
