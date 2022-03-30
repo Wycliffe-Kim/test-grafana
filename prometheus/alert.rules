@@ -3,7 +3,7 @@ groups:
   rules:
 
   - alert: car_alert
-    expr: rate(traffic_volumes_car[5m]) > 0.75
+    expr: rate(traffic_volumes{metric_type="car"}[5m]) > 0.75
     for: 0s
     labels:
       tags: car
@@ -12,7 +12,7 @@ groups:
       description: "car_alert"
 
   - alert: bus_alert
-    expr: rate(traffic_volumes_bus[5m]) > 0.75
+    expr: rate(traffic_volumes{metric_type="bus"}[5m]) > 0.75
     for: 0s
     labels:
       tags: bus
@@ -21,7 +21,7 @@ groups:
       description: "bus_alert"
 
   - alert: truck_alert
-    expr: rate(traffic_volumes_truck[5m]) > 0.75
+    expr: rate(traffic_volumes{metric_type="truck"}[5m]) > 0.75
     for: 0s
     labels:
       tags: truck
@@ -30,7 +30,7 @@ groups:
       description: "truck_alert"
 
   - alert: motorcycle_alert
-    expr: rate(traffic_volumes_motorcycle[5m]) > 0.75
+    expr: rate(traffic_volumes{metric_type="motorcycle"}[5m]) > 0.75
     for: 0s
     labels:
       tags: motorcycle
