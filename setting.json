@@ -1,0 +1,7 @@
+{
+  "address": "host.docker.internal",
+  "grafanaPort": 3555,
+  "promClientPort": 5555,
+  "prometheusPort": 9090,
+  "apiKey": "eyJrIjoiWDZQZEJISWYwcnExam10M2NGcU52RVJVNXU4MGRtWWUiLCJuIjoiYWRtaW4iLCJpZCI6MX0="
+}

@@ -39,7 +39,7 @@ export default function GRPCServer(port: number) {
   function sendTrafficVolumes(
     call: grpc.ServerUnaryCall<RequestType, ResponseType>, 
     callback: grpc.sendUnaryData<ResponseType>) {
-      console.log(`traffic volumes received ${JSON.stringify(call.request)}`);
+      // console.log(`traffic volumes received ${JSON.stringify(call.request)}`);
       const _camera_number = call.request.camera_number;
       // const _minutes = call.request.minutes;
       const _car = call.request.car;

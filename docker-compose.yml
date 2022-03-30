@@ -33,3 +33,10 @@ services:
     ports:
       - 5555:5555
       - 5556:5556
+
+  annotation-generator:
+    depends_on:
+      - prometheus
+    build:
+      dockerfile: Dockerfile
+      context: ./annotation-generator
