@@ -37,6 +37,7 @@ services:
   annotation-generator:
     depends_on:
       - prometheus
+      - grafana
     build:
       dockerfile: Dockerfile
       context: ./annotation-generator

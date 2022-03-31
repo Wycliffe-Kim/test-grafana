@@ -5,7 +5,7 @@ import AnnotationPusher from './AnotationPusher';
 const main = () => {
   const emitter = new EventEmitter();
   const workers = [
-    // AnnotationPusher, 
+    AnnotationPusher, 
     AlertingPuller
   ];
   workers.map((worker) => worker(emitter).start());

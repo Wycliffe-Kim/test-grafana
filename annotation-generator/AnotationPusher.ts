@@ -1,45 +1,49 @@
-import axios from 'axios';
-import EventEmitter from 'events';
+import axios, { Axios, AxiosResponse } from 'axios';
 import { Alert, Annotation } from './type';
-import WorkerAction from './WorkerAction';
+import { WorkerAction } from './WorkerAction';
 import AlertStore from './AlertStore';
 import { eitherCreator } from './functions';
 import * as setting from '../setting.json';
 
-const AnnotationPusher = (emitter: EventEmitter): WorkerAction => {
+const AnnotationPusher: WorkerAction.WorkerFunc = (emitter) => {
+  type AnnotationApiFunc = (annotation: Annotation) => Promise<AxiosResponse<any, any>>;
+  type ToAnnotationFunc = (alert: Alert) => Annotation;
+
   const _emitter = emitter;
   const _address = setting.address;
   const _port = setting.grafanaPort;
   const _realAddress = `http://${_address}:${_port}/api/annotations`;
   const _apiKey = `Bearer ${setting.apiKey}`;
 
-  const start = () => _emitter.on('alert', (alerts: Alert[]) => {
-    console.log('----------------------------------');
-    console.log(JSON.stringify(alerts));
+  const start: WorkerAction.StartFunc = () => {
+    _emitter.on('alert', (alerts: Alert[]) => {
+      console.log('----------------------------------');
+      console.log(JSON.stringify(alerts));
 
-    alerts.forEach((alert) => {
-      eitherCreator(AlertStore.of().has(alert.type), 
-        AlertStore.of().get(alert.type), toAnnotation(alert))
-      .map((annotation) => 
-        eitherCreator(alert.state === 'FIRING', annotation, annotation)
-        .map((annotation) => put({
-            id: annotation.id,
-            state: annotation.state,
-            tags: annotation.tags,
-            text: annotation.text,
-            time: annotation.time,
-            timeEnd: alert.activeAt
-          })))
-      .leftMap((annotation) => 
-        eitherCreator(annotation.state === 'FIRING', annotation, annotation)
-        .map((annotation) => post(annotation).then((response) => {
-          annotation.id = response.data.id;
-          AlertStore.of().push(alert.type, annotation);
-        }).catch((error) => console.log(error))));
+      // alerts.forEach((alert) => {
+      //   eitherCreator(AlertStore.of().has(alert.type), 
+      //     AlertStore.of().get(alert.type), toAnnotation(alert))
+      //   .map((annotation) => 
+      //     eitherCreator(alert.state === 'FIRING', annotation, annotation)
+      //     .map((annotation) => put({
+      //         id: annotation.id,
+      //         state: annotation.state,
+      //         tags: annotation.tags,
+      //         text: annotation.text,
+      //         time: annotation.time,
+      //         timeEnd: alert.activeAt
+      //       })))
+      //   .leftMap((annotation) => 
+      //     eitherCreator(annotation.state === 'FIRING', annotation, annotation)
+      //     .map((annotation) => post(annotation).then((response) => {
+      //       annotation.id = response.data.id;
+      //       AlertStore.of().push(alert.type, annotation);
+      //     }).catch((error) => console.log(error))));
+      // });
     });
-  });
+  }
 
-  const post = (annotation: Annotation) => 
+  const post: AnnotationApiFunc = (annotation) => 
     axios.post(_realAddress, {
       tags: annotation.tags,
       text: annotation.text,
@@ -51,7 +55,7 @@ const AnnotationPusher = (emitter: EventEmitter): WorkerAction => {
       }
     });
 
-  const put = (annotation: Annotation) => 
+  const put: AnnotationApiFunc = (annotation) => 
     axios.put(`${_realAddress}/${annotation.id}`, {
       tags: annotation.tags,
       text: annotation.text,
@@ -63,7 +67,7 @@ const AnnotationPusher = (emitter: EventEmitter): WorkerAction => {
       }
     });
 
-  const toAnnotation = (alert: Alert): Annotation => ({
+  const toAnnotation: ToAnnotationFunc = (alert) => ({
     id: 0,
     state: alert.state,
     tags: [alert.tags],
