@@ -16,8 +16,8 @@ export interface Alert {
 }
 
 export namespace Alert {
-  export const defaultValue = (): Alert => ({
-    type: 'CAR',
+  export const defaultValue = (defaultType: AlertType = 'CAR'): Alert => ({
+    type: defaultType,
     activeAt: 0,
     alertName: '',
     job: '',

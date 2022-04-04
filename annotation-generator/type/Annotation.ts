@@ -3,6 +3,7 @@ import AlertState from './AlertState';
 
 export interface Annotation {
   id: number;
+  dashboardId: number;
   time: number;
   timeEnd: number;
   tags: string[];
@@ -13,6 +14,7 @@ export interface Annotation {
 export namespace Annotation {
   export const defaultValue = (): Annotation => ({
     id: 0,
+    dashboardId: 0,
     time: 0,
     timeEnd: 0,
     tags: [],
@@ -21,7 +23,8 @@ export namespace Annotation {
   });
 
   export const isValid = (annotation: Annotation) => 
-    annotation.id > 0 && annotation.time > 0 && annotation.timeEnd > 0;
+    annotation.id > 0 && annotation.dashboardId > 0 && 
+    annotation.time > 0 && annotation.timeEnd > 0;
 
   export const copy = (annotation: Annotation) => R.clone(annotation);
 }

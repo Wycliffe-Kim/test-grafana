@@ -13,10 +13,10 @@ export default class AlertStore {
   
   private constructor() {
     this.alerts = new Map<AlertType, Annotation>();
-    this.alerts.set('CAR', Annotation.defaultValue());
-    this.alerts.set('BUS', Annotation.defaultValue());
-    this.alerts.set('TRUCK', Annotation.defaultValue());
-    this.alerts.set('MOTORCYCLE', Annotation.defaultValue());
+    this.reset('CAR');
+    this.reset('BUS');
+    this.reset('TRUCK');
+    this.reset('MOTORCYCLE');
   }
   
   push = (type: AlertType, annotation: Annotation) => {
@@ -29,4 +29,8 @@ export default class AlertStore {
   }
 
   has = (type: AlertType): boolean => Annotation.isValid(this.get(type));
+
+  reset = (type: AlertType) => {
+    this.alerts.set(type, Annotation.defaultValue());
+  }
 }
