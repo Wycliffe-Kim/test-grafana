@@ -17,7 +17,7 @@ const AnnotationPusher: WorkerAction.WorkerFunc = (emitter) => {
   const _address = setting.address;
   const _port = setting.grafanaPort;
   const _realAddress = `http://${_address}:${_port}/api`;
-  const _apiKey = `Bearer ${setting.apiKey}`;
+  const _apiKey = `Bearer ${Buffer.from(setting.apiKey, 'base64').toString()}`;
 
   const start: WorkerAction.StartFunc = () => {
     _emitter.on('alert', (alerts: AlertMapType) => {
