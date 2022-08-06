@@ -4,3 +4,4 @@ export * from './GaugeRunner';
 export * from './TrafficCountersRunner';
 export * from './TrafficGuagesRunner';
 export * from './Simulator';
+export * from './MetricTypes';
