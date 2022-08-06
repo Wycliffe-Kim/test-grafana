@@ -5,7 +5,7 @@ export const GaugeRunner =
   () => {
     const getGauge = (input: T) => {
       const gauge = register.getSingleMetric(name) as Gauge<string>;
-      return gauge.labels(...Object.keys(input));
+      return gauge.labels(...Object.values<string>(input));
     };
 
     return {
