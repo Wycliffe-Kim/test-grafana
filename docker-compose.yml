@@ -1,13 +1,6 @@
 version: '3.4'
 
 services:
-  # base:
-  #   image: base
-  #   container_name: base
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./
-
   grafana:
     container_name: grafana
     build: 
@@ -24,37 +17,23 @@ services:
     ports:
       - 9090:9090
 
-  grpcclient:
-    # depends_on:
-    #   - base
-    container_name: grpcclient
-    build:
-      # dockerfile: Dockerfile
-      # context: ./grpcclient
-      dockerfile: ./grpcclient/Dockerfile
-      context: ./
+  # grpcclient:
+  #   container_name: grpcclient
+  #   build:
+  #     dockerfile: ./grpcclient/Dockerfile
+  #     context: ./
 
   promclient:
-    # depends_on:
-    #   - base
     container_name: promclient
     build:
-      # dockerfile: Dockerfile
-      # context: ./promclient
       dockerfile: ./promclient/Dockerfile
       context: ./
     ports:
       - 5555:5555
       - 5556:5556
 
-  annotation-generator:
-    # depends_on:
-    #   - base
-    #   - prometheus
-    #   - grafana
-    container_name: annotation-generator
-    build:
-      # dockerfile: Dockerfile
-      # context: ./annotation-generator
-      dockerfile: ./annotation-generator/Dockerfile
-      context: ./
+  # annotation-generator:
+  #   container_name: annotation-generator
+  #   build:
+  #     dockerfile: ./annotation-generator/Dockerfile
+  #     context: ./
