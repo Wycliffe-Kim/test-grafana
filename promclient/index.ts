@@ -1,5 +1,5 @@
+import { NodeServer } from './servers';
 import { Initializer, Simulator } from './metrics';
-import { GRPCServer, NodeServer } from './servers';
 import * as setting from '../setting.json';
 
 const initMetrics = () => {
@@ -8,7 +8,7 @@ const initMetrics = () => {
 
 const startServers = () => {
   const port = setting.promClientPort;
-  const servers = [NodeServer, GRPCServer];
+  const servers = [NodeServer];
   servers.forEach((server, i) => server(port + i).do());
 };
 
